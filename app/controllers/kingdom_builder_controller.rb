@@ -31,7 +31,7 @@ class KingdomBuilderController < ApplicationController
       render json: { message: 'record successfully updated' }, status: :ok
     else
       render json: {
-        error: @kingdom_builder.errors.full_messages,
+        error: @kingdom_builder.errors.full_messages.to_sentence,
         message:  'error updating kingdom builder record'
       }, status: :internal_server_error
     end
@@ -42,7 +42,7 @@ class KingdomBuilderController < ApplicationController
       render json: { message: 'record successfully updates' }, status: :ok
     else
       render json: {
-        error: @kingdom_builder.errors.full_messages,
+        error: @kingdom_builder.errors.full_messages.to_sentence,
         message:  'error deleting kingdom builder record'
       }, status: :internal_server_error
     end
