@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   get "/kingdom_builders/count" => "kingdom_builder#builders_count"
   get "/kingdom_builders/payment_breakdown/count" => "kingdom_builder#payment_breakdown_count"
   get "/kingdom_builders/zonal_pledgers/count" => "kingdom_builder#zonal_pledgers_count"
+  post 'login', to: 'authentication#authenticate'
+  get 'logout', to: 'authentication#destroy'
 end

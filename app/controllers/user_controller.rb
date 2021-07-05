@@ -16,6 +16,7 @@ class UserController < ApplicationController
   end
 
   def show
+    render json: { user: @user, message: 'user record successfully retrieved' }, status: :ok
   end
 
   def update
