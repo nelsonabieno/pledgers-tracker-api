@@ -11,8 +11,9 @@ class KingdomBuilderController < ApplicationController
     if new_builder.save
       render json: { message: 'record successfully saved' }, status: :created
     else
+      puts "ERROR MSG: #{new_builder.errors.full_messages}"
       render json: {
-                    error: @kingdom_builder.errors.full_messages,
+                    error: new_builder.errors.full_messages,
                     message:  'error saving kingdom builder record'
       }, status: :unprocessable_entity
     end
