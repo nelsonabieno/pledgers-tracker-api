@@ -87,6 +87,21 @@ class KingdomBuilderController < ApplicationController
     render json: count_array, status: :ok
   end
 
+  def search
+    search_value = params["search_params"]
+    if search_value.present?
+      results = KingdomBuilder.search_name(search_value)
+      render json: {results: results}, status: :ok
+    end
+  end
+
+  def sum_user_payments
+    if params[:email].present?
+      total = KingdomBuildersPayment.sum_user_payments(params[:email])
+      render json: { total: total }, status: :ok
+    end
+  end
+
   private
 
   def builder_params

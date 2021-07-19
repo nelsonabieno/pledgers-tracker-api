@@ -5,4 +5,8 @@ class KingdomBuilder < ActiveRecord::Base
   has_many :kingdom_builders_payments
 
   validates :email, presence: true, uniqueness: true, format: {with: /\A[^@\s]+@[^@\s]+\z/, message: "email address not valid" }
+
+  def self.search_name value
+    where("name ilike ?", "%#{value}%")
+  end
 end

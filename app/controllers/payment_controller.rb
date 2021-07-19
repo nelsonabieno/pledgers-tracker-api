@@ -7,12 +7,14 @@ class PaymentController < ApplicationController
     render json: builder_payments, status: :ok
   end
 
-  def create  #NameError (uninitialized constant KingdomBuilder::Parishes):
+  def create
     new_payment = KingdomBuildersPayment.new(payment_params)
     new_payment.email = @kingdom_builder.email
 
 
     if new_payment.save
+      total_amount_paid = KingdomBuildersPayment.sum_user_payments(new_payment.email)
+      update_kingdom_builders_pay(total_amount_paid)
       render json: { message: 'payment record successfully saved' }, status: :created
     else
       render json: {
@@ -102,4 +104,7 @@ class PaymentController < ApplicationController
     params.permit(:amount_paid, :entered_by, :kingdom_builder_id )
   end
 
+  def update_kingdom_builders_pay(total_amount_paid)
+    KingdomBuilder.find(params[:kingdom_builder_id]).update_attribute(:total_amount_paid, total_amount_paid)
+  end
 end
